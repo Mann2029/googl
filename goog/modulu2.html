@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPulse Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; }
+        .purple-gradient { background: linear-gradient(90deg, #6b46c1, #805ad5); }
+        .text-purple-600 { color: #6b46c1; }
+        .bg-primary-purple { background-color: #6b46c1; }
+        .stat-purple { background-color: #6b46c1; color: white; }
+        .stat-orange { background-color: #F6AD55; color: white; }
+        .stat-green { background-color: #48BB78; color: white; }
+        .text-primary-purple { color: #6b46c1; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <svg class="h-7 w-7 text-purple-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    <span class="text-xl font-bold text-gray-800">EduPulse</span>
+                </div>
+                <nav class="hidden md:flex space-x-4 lg:space-x-8">
+                    <a href="modulu1.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg">Admin & Operations</a>
+                    <a href="modulu2.html" class="px-3 py-2 text-sm font-medium text-white purple-gradient rounded-lg shadow-md">AI Learning</a>
+                    <a href="modulu3.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg">Gamification</a>
+                </nav>
+                <div class="flex items-center">
+                    <div class="ml-3 relative">
+                        <button type="button" class="bg-gray-100 p-1 rounded-full text-gray-400 hover:text-gray-500"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">AI-Powered Learning</h1>
+            <p class="text-sm text-gray-500 mt-1">Personalized adaptive learning for every student</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="p-4 rounded-xl shadow-lg stat-purple"><p class="text-sm font-medium opacity-80">Learning Pace</p><p id="stat-learning-pace" class="text-xl font-semibold mt-1">Loading...</p></div>
+            <div class="p-4 rounded-xl shadow-lg stat-orange"><p class="text-sm font-medium opacity-80">Completion Rate</p><p id="stat-completion-rate" class="text-3xl font-semibold mt-1">...%</p></div>
+            <div class="p-4 rounded-xl shadow-lg stat-green"><p class="text-sm font-medium opacity-80">Strong Topics</p><p id="stat-strong-topics" class="text-3xl font-semibold mt-1">...</p></div>
+            <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-red-500"><p class="text-sm font-medium text-gray-500">Topics to Review</p><p id="stat-review-topics" class="text-3xl font-semibold text-red-600 mt-1">...</p></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div><h2 class="text-xl font-semibold text-gray-900">Adaptive Learning Engine</h2><p class="text-sm text-gray-500 mt-1">AI analyzes your learning pattern and adapts content</p></div>
+                        <span class="text-xs font-semibold bg-blue-100 text-blue-600 px-3 py-1 rounded-full">Active</span>
+                    </div>
+                    <div class="mt-6 border-b pb-4"><h3 class="text-sm font-semibold text-gray-700 mb-2">Your Learning Profile</h3>
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div><p class="text-xs text-gray-500">Learning Pace</p><div id="profile-learning-pace" class="text-primary-purple font-semibold text-lg flex items-center justify-center"><span class="h-2 w-2 mr-1 rounded-full bg-primary-purple"></span>...</div></div>
+                            <div><p class="text-xs text-gray-500">Retention Rate</p><div id="profile-retention-rate" class="text-primary-purple font-semibold text-lg flex items-center justify-center"><span class="h-2 w-2 mr-1 rounded-full bg-primary-purple"></span>...%</div></div>
+                            <div><p class="text-xs text-gray-500">Focus Time</p><div id="profile-focus-time" class="text-primary-purple font-semibold text-lg flex items-center justify-center"><span class="h-2 w-2 mr-1 rounded-full bg-primary-purple"></span>...</div></div>
+                        </div>
+                    </div>
+                    <h3 class="text-md font-semibold text-gray-700 mt-4 mb-3">Today's Personalized Schedule</h3>
+                    <div id="schedule-container" class="space-y-3">
+                        <p class="text-sm text-gray-500">Loading schedule...</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">Personalized AI Feedback</h2>
+                    <p class="text-sm text-gray-500 mt-1">Key insights based on your recent activity</p>
+                    <div id="feedback-container" class="mt-4 space-y-4">
+                        <p class="text-sm text-gray-500">Loading feedback...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8 lg:col-span-1">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">Progress Tracker</h2>
+                    <p class="text-sm text-gray-500 mt-1">Your learning journey</p>
+                    <div id="progress-container" class="mt-6 space-y-4">
+                        <p class="text-sm text-gray-500">Loading progress...</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">Strengths & Gaps</h2>
+                    <p class="text-sm text-gray-500 mt-1">Skills breakdown</p>
+                    <div class="mt-6"><h3 class="text-sm font-semibold text-gray-700 mb-2 border-b pb-2">Top Strengths</h3><div id="strengths-container" class="flex flex-wrap gap-2"></div></div>
+                    <div class="mt-6"><h3 class="text-sm font-semibold text-gray-700 mb-2 border-b pb-2">Focus Areas</h3><div id="gaps-container" class="flex flex-wrap gap-2"></div></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">AI Recommendation</h2>
+                    <p id="recommendation-text" class="text-sm text-gray-500 mt-1">Analyzing your pattern...</p>
+                    <button class="w-full mt-4 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition-colors">Start Optimized Session</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const apiBaseUrl = 'http://127.0.0.1:5000';
+
+            const fetchDashboardData = async () => {
+                try {
+                    const response = await fetch(`${apiBaseUrl}/get_student_dashboard`);
+                    const result = await response.json();
+
+                    if (!result.success) throw new Error(result.message);
+                    
+                    const data = result.data;
+                    updateUI(data);
+
+                } catch (error) {
+                    console.error("Failed to fetch dashboard data:", error);
+                    // You could display an error message on the page here
+                }
+            };
+
+            const updateUI = (data) => {
+                // Update Top Stats
+                document.getElementById('stat-learning-pace').textContent = data.stats.learningPace;
+                document.getElementById('stat-completion-rate').textContent = `${data.stats.completionRate}%`;
+                document.getElementById('stat-strong-topics').textContent = data.stats.strongTopics;
+                document.getElementById('stat-review-topics').textContent = data.stats.topicsToReview;
+
+                // Update Learning Profile
+                document.getElementById('profile-learning-pace').innerHTML = `<span class="h-2 w-2 mr-1 rounded-full bg-primary-purple"></span> ${data.profile.learningPace}`;
+                document.getElementById('profile-retention-rate').innerHTML = `<span class="h-2 w-2 mr-1 rounded-full bg-primary-purple"></span> ${data.profile.retentionRate}%`;
+                document.getElementById('profile-focus-time').innerHTML = `<span class="h-2 w-2 mr-1 rounded-full bg-primary-purple"></span> ${data.profile.focusTime}`;
+
+                // Populate Schedule
+                const scheduleContainer = document.getElementById('schedule-container');
+                scheduleContainer.innerHTML = ''; // Clear loading text
+                data.schedule.forEach(item => {
+                    let statusHtml = '';
+                    if (item.status === 'Completed') {
+                        statusHtml = `<svg class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`;
+                    } else if (item.status === 'In Progress') {
+                        statusHtml = `<span class="text-xs font-semibold text-blue-600">In Progress</span>`;
+                    } else {
+                        statusHtml = `<span class="text-xs font-semibold text-gray-400">Pending</span>`;
+                    }
+                    scheduleContainer.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-bold text-gray-800">${item.time}</span>
+                                <span class="text-xs text-gray-600">${item.topic}</span>
+                                <span class="text-xs text-gray-400">Difficulty: ${item.difficulty}</span>
+                            </div>
+                            ${statusHtml}
+                        </div>`;
+                });
+                
+                // Populate Feedback
+                const feedbackContainer = document.getElementById('feedback-container');
+                feedbackContainer.innerHTML = '';
+                data.feedback.forEach(item => {
+                    const isPositive = item.type === 'positive';
+                    const borderColor = isPositive ? 'border-green-500' : 'border-orange-500';
+                    const bgColor = isPositive ? 'bg-green-50' : 'bg-orange-50';
+                    const iconColor = isPositive ? 'text-green-500' : 'text-orange-500';
+                    const iconPath = isPositive 
+                        ? 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+                        : 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z';
+                    
+                    feedbackContainer.innerHTML += `
+                        <div class="flex items-start p-4 ${bgColor} border-l-4 ${borderColor} rounded-lg">
+                            <svg class="h-6 w-6 ${iconColor} mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconPath}" /></svg>
+                            <div>
+                                <p class="font-semibold text-gray-800">${item.title}</p>
+                                <p class="text-sm text-gray-600">${item.description}</p>
+                            </div>
+                        </div>`;
+                });
+
+                // Populate Progress Bars
+                const progressContainer = document.getElementById('progress-container');
+                progressContainer.innerHTML = '';
+                data.progress.forEach(item => {
+                    progressContainer.innerHTML += `
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-700"><span>${item.subject}</span><span class="font-medium">${item.value}%</span></div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1"><div class="bg-primary-purple h-2 rounded-full" style="width: ${item.value}%"></div></div>
+                        </div>`;
+                });
+
+                // Populate Strengths & Gaps
+                const strengthsContainer = document.getElementById('strengths-container');
+                strengthsContainer.innerHTML = '';
+                data.skills.strengths.forEach(skill => {
+                    strengthsContainer.innerHTML += `<span class="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">${skill}</span>`;
+                });
+                
+                const gapsContainer = document.getElementById('gaps-container');
+                gapsContainer.innerHTML = '';
+                data.skills.gaps.forEach(skill => {
+                    gapsContainer.innerHTML += `<span class="inline-block bg-orange-100 text-orange-700 text-xs font-medium px-3 py-1 rounded-full">${skill}</span>`;
+                });
+                
+                // Update AI Recommendation
+                document.getElementById('recommendation-text').textContent = data.recommendation;
+            };
+
+            // Fetch data when the page loads
+            fetchDashboardData();
+        });
+    </script>
+</body>
+</html>

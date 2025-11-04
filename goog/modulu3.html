@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPulse Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Light background */
+        }
+        .purple-gradient {
+            background: linear-gradient(90deg, #6b46c1, #805ad5);
+        }
+        .text-purple-600 { color: #6b46c1; }
+        .bg-purple-600 { background-color: #6b46c1; }
+        .ring-purple-600 { --tw-ring-color: #6b46c1; }
+
+        /* Custom style for Gamification components (reusing AI Learning classes) */
+        .stat-purple { background-color: #6b46c1; color: white; } /* Total XP */
+        .stat-orange { background-color: #F6AD55; color: white; } /* Current Streak */
+        .stat-green { background-color: #48BB78; color: white; } /* Session Score */
+        .text-primary-purple { color: #6b46c1; }
+
+        /* Custom style for flashcard reveal */
+        .flashcard-answer-hidden {
+            filter: blur(4px);
+            transition: filter 0.3s ease;
+            cursor: pointer;
+        }
+        .flashcard-answer-revealed {
+            filter: blur(0);
+            cursor: default;
+        }
+        
+        /* XP Message Box Animation */
+        .xp-message-box {
+            animation: floatup 1.2s ease-out forwards;
+        }
+
+        @keyframes floatup {
+            0% { transform: translateY(0) scale(0.8); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-70px) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <svg class="h-7 w-7 text-purple-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="text-xl font-bold text-gray-800">EduPulse</span>
+                </div>
+
+                <nav class="hidden md:flex space-x-4 lg:space-x-8">
+                    <a href="modulu1.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        Admin & Operations
+                    </a>
+                    <a href="modulu2.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        AI Learning
+                    </a>
+                    <a href="modulu3.html" class="px-3 py-2 text-sm font-medium text-white purple-gradient rounded-lg shadow-md">
+                        Gamification
+                    </a>
+                    <a href="modulu4.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        Resources
+                    </a>
+                    <a href="modulu5.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        Future Tools
+                    </a>
+                </nav>
+
+                <div class="flex items-center">
+                    <div class="ml-3 relative">
+                        <button type="button" class="bg-gray-100 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Gamification</h1>
+            <p class="text-sm text-gray-500 mt-1">Track your progress and engage with challenges</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="p-4 rounded-xl shadow-lg border-l-4 stat-orange">
+                <p class="text-sm font-medium opacity-80">Current Streak</p>
+                <p class="text-3xl font-semibold mt-1 flex items-center">
+                    <svg class="w-6 h-6 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9H6.2a1 1 0 01-1.707-1.707l1.707-1.707A1 1 0 0110 5v4z" clip-rule="evenodd"></path></svg>
+                    7 Days
+                </p>
+            </div>
+
+            <div class="p-4 rounded-xl shadow-lg border-l-4 stat-purple">
+                <p class="text-sm font-medium opacity-80">Total XP</p>
+                <p class="text-3xl font-semibold mt-1" id="total-xp">1250</p>
+            </div>
+
+            <div class="p-4 rounded-xl shadow-lg border-l-4 stat-green">
+                <p class="text-sm font-medium opacity-80">Session Score</p>
+                <p class="text-3xl font-semibold mt-1" id="session-score">0</p>
+            </div>
+
+            <div class="p-4 rounded-xl shadow-lg border-l-4 bg-yellow-100 border-yellow-500">
+                <p class="text-sm font-medium text-gray-700">Rank</p>
+                <p class="text-3xl font-semibold text-yellow-700 mt-1 flex items-center">
+                    <svg class="w-6 h-6 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.94 13.91a2 2 0 001.05.69 1.99 1.99 0 001.45-.19l4.56-2.58a2 2 0 000-3.46L5.44 5.59a2 2 0 00-2.5 1.5l.08 6.82zM10 14.58l4.06-2.3a2 2 0 000-3.46L10 6.58V14.58zM17.06 13.91a2 2 0 001.05-.69 1.99 1.99 0 001.45.19l-4.56 2.58a2 2 0 000 3.46L17.06 13.9z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    #3
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-semibold text-gray-900">Daily Flashcard Challenge</h2>
+                        <span class="text-2xl font-bold text-purple-600" id="card-progress">1/3</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">Master your weak topics through spaced repetition</p>
+
+                    <div class="mt-6 border border-gray-200 rounded-xl p-8 bg-purple-50/50 min-h-[250px] flex flex-col justify-between relative">
+                        
+                        <div id="xp-message-container" class="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                            </div>
+
+                        <div id="flashcard-question-area" class="text-center">
+                            <p id="flashcard-subject" class="text-sm text-gray-500 font-medium tracking-wider mb-2 uppercase">Database Design</p>
+                            <h3 id="flashcard-question" class="text-3xl font-extrabold text-gray-800 my-4">What is Database Normalization?</h3>
+                        </div>
+
+                        <div id="flashcard-answer-container" class="text-center mt-6">
+                            <p id="flashcard-reveal-prompt" class="text-sm text-purple-600 font-semibold cursor-pointer hover:underline" onclick="revealAnswer()">
+                                Click to reveal answer
+                            </p>
+                            <div id="flashcard-answer" class="text-xl font-semibold text-gray-700 flashcard-answer-hidden mt-2" onclick="revealAnswer()">
+                                The process of structuring a relational database in accordance with a series of so-called normal forms in order to reduce data redundancy and improve data integrity.
+                            </div>
+                        </div>
+
+                        <div id="flashcard-actions" class="mt-8 pt-4 border-t border-gray-200 flex justify-between space-x-4">
+                            <button id="need-review-btn" onclick="handleAnswer('incorrect')" class="flex items-center text-sm font-medium text-gray-500 hover:text-red-500 transition duration-150" disabled>
+                                <svg class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 18H5a2 2 0 01-2-2V8a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2zM9 13v-2m0 4v-2m4-2h-2"></path></svg>
+                                Need Review
+                            </button>
+                            <button id="get-hit-btn" onclick="handleAnswer('correct')" class="flex items-center text-sm font-bold bg-green-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-green-600 transition duration-150" disabled>
+                                Get Hit +10 XP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">Flash-Style Game Mechanics</h2>
+                    <p class="text-sm text-gray-500 mt-1">How you earn XP and level up in EduPulse</p>
+
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-lg text-purple-600">Level Progression</h3>
+                            <ul class="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                                <li>Each Level = A topic mastered. Complete to unlock next topic.</li>
+                            </ul>
+
+                            <h3 class="font-bold text-lg text-purple-600 mt-4">Score System</h3>
+                            <ul class="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                                <li>$+\text{10}$ for correct, boost Total XP.</li>
+                                <li>Maintaining streaks gives bonus XP.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-lg text-purple-600">Achievement Unlocks</h3>
+                            <ul class="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                                <li>Earn badges after mastering topics.</li>
+                            </ul>
+
+                            <h3 class="font-bold text-lg text-purple-600 mt-4">Daily Streaks</h3>
+                            <ul class="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                                <li>Maintain consistency for bonuses.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8 lg:col-span-1">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">Class Leaderboard</h2>
+                    <p class="text-sm text-gray-500 mt-1">Top performers this week</p>
+
+                    <div class="mt-6 space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold text-yellow-700 mr-3">#1</span>
+                                <span class="text-gray-800 font-medium">Sarah Johnson</span>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-600">2450 XP</span>
+                        </div>
+                         <div class="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold text-gray-700 mr-3">#2</span>
+                                <span class="text-gray-800 font-medium">Mike Chen</span>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-600">2100 XP</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 purple-gradient rounded-lg shadow-md text-white">
+                            <div class="flex items-center">
+                                <span class="font-bold mr-3">#3</span>
+                                <span class="font-medium">You</span>
+                            </div>
+                            <span class="text-sm font-semibold">1250 XP</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold text-gray-500 mr-3">#4</span>
+                                <span class="text-gray-800 font-medium">Emma Davis</span>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-600">880 XP</span>
+                        </div>
+                         <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <span class="font-bold text-gray-500 mr-3">#5</span>
+                                <span class="text-gray-800 font-medium">Alex Kumar</span>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-600">675 XP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-semibold text-gray-900">Your Badges</h2>
+                    <p class="text-sm text-gray-500 mt-1">Achievements earned so far</p>
+
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="flex flex-col items-center p-3 border border-orange-200 bg-orange-50 rounded-xl">
+                            <svg class="w-10 h-10 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="text-xs font-semibold text-orange-700 mt-2">7-Day Streak</span>
+                        </div>
+                        <div class="flex flex-col items-center p-3 border border-purple-200 bg-purple-50 rounded-xl">
+                            <svg class="w-10 h-10 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.242a2.242 2.242 0 011.957 2.242v7.126c0 1.242-1.008 2.25-2.25 2.25H4.25c-1.242 0-2.25-1.008-2.25-2.25V7.242a2.25 2.25 0 012.25-2.25h9.126c.742 0 1.442.327 1.957.876z" /></svg>
+                            <span class="text-xs font-semibold text-purple-700 mt-2">Index Ninja</span>
+                        </div>
+                         <div class="flex flex-col items-center p-3 border border-green-200 bg-green-50 rounded-xl">
+                            <svg class="w-10 h-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="text-xs font-semibold text-green-700 mt-2">Perfect Score</span>
+                        </div>
+                        <div class="flex flex-col items-center p-3 border border-yellow-200 bg-yellow-50 rounded-xl">
+                            <svg class="w-10 h-10 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h14" /></svg>
+                            <span class="text-xs font-semibold text-yellow-700 mt-2">1000 XP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- State and Data ---
+        const FLASHCARDS = [
+            { id: 1, subject: 'Database Design', question: 'What is Database Normalization?', answer: 'The process of structuring a relational database in accordance with a series of so-called normal forms in order to reduce data redundancy and improve data integrity.' },
+            { id: 2, subject: 'Organic Chemistry', question: 'What is a functional group?', answer: 'A specific group of atoms or bonds within a molecule that is responsible for the characteristic chemical reactions of that molecule.' },
+            { id: 3, subject: 'Ancient History', question: 'Who was the first Roman Emperor?', answer: 'Augustus (Octavian), who reigned from 27 BC until his death in AD 14.' },
+            { id: 4, subject: 'Physics', question: 'What is the formula for calculating force?', answer: '$F = ma$ (Force equals mass times acceleration).' },
+            { id: 5, subject: 'Algebra', question: 'What is the quadratic formula?', answer: 'The quadratic formula is $\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}$.' },
+        ];
+        
+        // --- Global State ---
+        let totalXp = 1250;
+        let sessionScore = 0;
+        let cardIndex = 0;
+        const TOTAL_CHALLENGE_CARDS = 3; // Max cards for the daily challenge
+        let cardsCompleted = 0;
+        let isAnswerRevealed = false;
+
+        const ELEMENTS = {
+            totalXp: document.getElementById('total-xp'),
+            sessionScore: document.getElementById('session-score'),
+            cardProgress: document.getElementById('card-progress'),
+            flashcardSubject: document.getElementById('flashcard-subject'),
+            flashcardQuestion: document.getElementById('flashcard-question'),
+            flashcardAnswer: document.getElementById('flashcard-answer'),
+            flashcardRevealPrompt: document.getElementById('flashcard-reveal-prompt'),
+            xpMessageContainer: document.getElementById('xp-message-container'),
+            getHitBtn: document.getElementById('get-hit-btn'),
+            needReviewBtn: document.getElementById('need-review-btn'),
+        };
+
+        // --- Utility Functions ---
+
+        /**
+         * Updates the main XP and score stats in the header.
+         */
+        function updateStats() {
+            ELEMENTS.totalXp.textContent = totalXp;
+            ELEMENTS.sessionScore.textContent = sessionScore;
+            ELEMENTS.cardProgress.textContent = `${Math.min(cardsCompleted + 1, TOTAL_CHALLENGE_CARDS)}/${TOTAL_CHALLENGE_CARDS}`;
+        }
+
+        /**
+         * Loads the flashcard content based on the current index.
+         * Resets the card to the unrevealed state.
+         */
+        function loadCard() {
+            isAnswerRevealed = false;
+
+            if (cardsCompleted >= TOTAL_CHALLENGE_CARDS) {
+                // Challenge complete state
+                ELEMENTS.flashcardQuestion.textContent = "Daily Challenge Complete!";
+                ELEMENTS.flashcardSubject.textContent = "Great Job!";
+                ELEMENTS.flashcardAnswer.textContent = `You finished the challenge and scored ${sessionScore} XP!`;
+                
+                ELEMENTS.flashcardAnswer.classList.remove('flashcard-answer-hidden');
+                ELEMENTS.flashcardAnswer.classList.add('flashcard-answer-revealed');
+
+                ELEMENTS.flashcardRevealPrompt.style.display = 'none';
+                ELEMENTS.getHitBtn.style.display = 'none';
+                ELEMENTS.needReviewBtn.style.display = 'none';
+                ELEMENTS.cardProgress.textContent = `${TOTAL_CHALLENGE_CARDS}/${TOTAL_CHALLENGE_CARDS}`;
+
+                // Reset for next day (or next session start)
+                cardIndex = 0; // Prepare index for next run
+                return;
+            }
+            
+            // Cycle through available cards, repeating if challenge length > data length
+            const card = FLASHCARDS[cardIndex % FLASHCARDS.length];
+            
+            ELEMENTS.flashcardSubject.textContent = card.subject.toUpperCase();
+            ELEMENTS.flashcardQuestion.textContent = card.question;
+            ELEMENTS.flashcardAnswer.textContent = card.answer;
+            
+            // Reset visual state
+            ELEMENTS.flashcardAnswer.classList.add('flashcard-answer-hidden');
+            ELEMENTS.flashcardAnswer.classList.remove('flashcard-answer-revealed');
+            ELEMENTS.flashcardRevealPrompt.style.display = 'block';
+
+            // Disable buttons until revealed
+            ELEMENTS.getHitBtn.disabled = true;
+            ELEMENTS.needReviewBtn.disabled = true;
+
+            updateStats();
+        }
+
+
+        /**
+         * Reveals the flashcard answer and enables the action buttons.
+         */
+        window.revealAnswer = function() {
+            if (!isAnswerRevealed && cardsCompleted < TOTAL_CHALLENGE_CARDS) {
+                isAnswerRevealed = true;
+                ELEMENTS.flashcardAnswer.classList.remove('flashcard-answer-hidden');
+                ELEMENTS.flashcardAnswer.classList.add('flashcard-answer-revealed');
+                ELEMENTS.flashcardRevealPrompt.style.display = 'none';
+                
+                // Enable action buttons after reveal
+                ELEMENTS.getHitBtn.disabled = false;
+                ELEMENTS.needReviewBtn.disabled = false;
+            }
+        }
+        
+        /**
+         * Dynamically creates and displays a clickable XP message box with animation.
+         * @param {number} xpAmount - The XP gained.
+         */
+        function showClickableBox(xpAmount) {
+            const messageBox = document.createElement('div');
+            messageBox.classList.add(
+                'xp-message-box', 'bg-yellow-400', 'text-gray-900', 'font-extrabold', 'text-xl', 
+                'px-4', 'py-2', 'rounded-full', 'shadow-2xl', 'absolute', 'top-1/2', 'left-1/2', 
+                '-translate-x-1/2', '-translate-y-1/2', 'cursor-pointer', 'pointer-events-auto',
+                'z-30'
+            );
+            messageBox.textContent = `+${xpAmount} XP!`;
+            
+            // Make it clickable (as requested)
+            messageBox.onclick = () => {
+                console.log(`Clicked on the +${xpAmount} XP box!`);
+                // Optional: You could add a small bonus here if clicked quickly
+            };
+
+            ELEMENTS.xpMessageContainer.appendChild(messageBox);
+            
+            // Remove the message after the animation completes and load the next card
+            setTimeout(() => {
+                messageBox.remove();
+                cardIndex++;
+                cardsCompleted++;
+                loadCard();
+            }, 1200); // Matches the animation duration
+        }
+
+        /**
+         * Handles the user's response (correct or incorrect).
+         * @param {string} type - 'correct' or 'incorrect'
+         */
+        window.handleAnswer = function(type) {
+            if (!isAnswerRevealed || cardsCompleted >= TOTAL_CHALLENGE_CARDS) return;
+
+            // Disable buttons immediately after submission
+            ELEMENTS.getHitBtn.disabled = true;
+            ELEMENTS.needReviewBtn.disabled = true;
+
+            if (type === 'correct') {
+                const xpGained = 10;
+                totalXp += xpGained;
+                sessionScore += xpGained;
+                showClickableBox(xpGained);
+            } else {
+                // 'Need Review' (Incorrect) - No XP gained, just advance card
+                console.log("Card marked for review. Moving to next card.");
+                cardIndex++;
+                cardsCompleted++;
+                // Give a slight visual delay before next card appears
+                setTimeout(loadCard, 300); 
+            }
+        }
+        
+        // --- Initialization ---
+        window.onload = function() {
+            // Initial load
+            loadCard();
+            console.log("EduPulse Gamification Dashboard loaded and initialized.");
+        };
+
+    </script>
+</body>
+</html>

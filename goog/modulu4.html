@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Library - EduPulse</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Use Inter font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Light background */
+        }
+        .purple-gradient {
+            background: linear-gradient(90deg, #6b46c1, #805ad5);
+        }
+        .text-purple-600 { color: #6b46c1; }
+        .bg-purple-600 { background-color: #6b46c1; }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); }
+
+        /* Custom Colors from Image */
+        .color-teal { color: #38b2ac; }
+        .bg-teal-50 { background-color: #e6fffa; }
+        .border-teal-400 { border-color: #4fd1c5; }
+        .progress-bar-purple { background-color: #805ad5; }
+        .progress-bar-blue { background-color: #4299e1; }
+        .progress-bar-red { background-color: #f56565; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <svg class="h-7 w-7 text-purple-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="text-xl font-bold text-gray-800">EduPulse</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-4 lg:space-x-8">
+                    <a href="modulu1.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        Admin & Operations
+                    </a>
+                    <a href="modulu2.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        AI Learning
+                    </a>
+                    <a href="modulu3.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        Gamification
+                    </a>
+                    <!-- Active link: Resources -->
+                    <a href="modulu4.html" class="px-3 py-2 text-sm font-medium text-white purple-gradient rounded-lg shadow-md">
+                        Resources
+                    </a>
+                    <a href="modulu5.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">
+                        Future Tools
+                    </a>
+                </nav>
+
+                <!-- Profile/User Icon (Mock) -->
+                <div class="flex items-center">
+                    <div class="ml-3 relative">
+                        <button type="button" class="bg-gray-100 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header Section -->
+        <div class="flex items-center pb-6">
+            <div class="p-3 bg-teal-50 rounded-xl mr-3">
+                <i class="fas fa-book-open color-teal text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Resource Library</h1>
+                <p class="text-sm text-gray-500 mt-1">Access lectures, notes, and assignments</p>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-6">
+            <div class="relative">
+                <input type="text" placeholder="Search for lectures, notes, assignments..." 
+                       class="w-full p-3 pl-10 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-150">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+
+        <!-- Key Metrics Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Total Lectures -->
+            <div class="bg-white p-4 rounded-xl card-shadow border-l-4 border-gray-200">
+                <p class="text-sm text-gray-500">Total Lectures</p>
+                <p class="text-2xl font-bold text-gray-900 mt-1">156</p>
+            </div>
+            <!-- Study Materials -->
+            <div class="bg-white p-4 rounded-xl card-shadow border-l-4 border-gray-200">
+                <p class="text-sm text-gray-500">Study Materials</p>
+                <p class="text-2xl font-bold text-gray-900 mt-1">342</p>
+            </div>
+            <!-- Active Assignments -->
+            <div class="bg-white p-4 rounded-xl card-shadow border-l-4 border-gray-200">
+                <p class="text-sm text-gray-500">Active Assignments</p>
+                <p class="text-2xl font-bold text-yellow-600 mt-1">12</p>
+            </div>
+            <!-- Completed -->
+            <div class="bg-white p-4 rounded-xl card-shadow border-l-4 border-gray-200">
+                <p class="text-sm text-gray-500">Completed</p>
+                <p class="text-2xl font-bold text-green-600 mt-1">89%</p>
+            </div>
+        </div>
+
+        <!-- Two-Column Layout for Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Left Column: Recorded Lectures & Notes -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <!-- Recorded Lectures Section -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold text-gray-900 flex items-center">
+                            <i class="fas fa-video text-purple-600 mr-2"></i> Recorded Lectures
+                            <span class="text-sm font-normal text-gray-500 ml-2">(Watch and review all your own pace)</span>
+                        </h2>
+                        <span class="text-xs font-bold text-white bg-blue-500 px-2 py-1 rounded-full">3h New</span>
+                    </div>
+
+                    <!-- Lecture Item 1 -->
+                    <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between hover:bg-purple-50 transition duration-150 mb-3 cursor-pointer">
+                        <div class="flex items-center">
+                            <div class="p-2 rounded-full bg-purple-100 mr-3">
+                                <i class="fas fa-play text-purple-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Introduction to Calculus</p>
+                                <p class="text-xs text-gray-500 mt-0.5">Mathematics &bull; 45:00 &bull; Today</p>
+                                <div class="mt-1 w-full bg-gray-200 rounded-full h-1.5">
+                                    <div class="progress-bar-purple h-1.5 rounded-full" style="width: 75%"></div>
+                                </div>
+                                <p class="text-xs text-purple-600 mt-0.5">Progress</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-gray-500">75%</span>
+                    </div>
+
+                    <!-- Lecture Item 2 -->
+                    <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between hover:bg-purple-50 transition duration-150 mb-3 cursor-pointer">
+                        <div class="flex items-center">
+                            <div class="p-2 rounded-full bg-blue-100 mr-3">
+                                <i class="fas fa-play text-blue-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Chemical Bonding Explained</p>
+                                <p class="text-xs text-gray-500 mt-0.5">Chemistry &bull; 38:15 &bull; Yesterday</p>
+                                <div class="mt-1 w-full bg-gray-200 rounded-full h-1.5">
+                                    <div class="progress-bar-blue h-1.5 rounded-full" style="width: 100%"></div>
+                                </div>
+                                <p class="text-xs text-blue-600 mt-0.5">Progress</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-green-600">100%</span>
+                    </div>
+
+                    <!-- Lecture Item 3 -->
+                    <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between hover:bg-purple-50 transition duration-150 mb-3 cursor-pointer">
+                        <div class="flex items-center">
+                            <div class="p-2 rounded-full bg-red-100 mr-3">
+                                <i class="fas fa-play text-red-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">The French Revolution</p>
+                                <p class="text-xs text-gray-500 mt-0.5">History &bull; 52:00 &bull; 2 days ago</p>
+                                <div class="mt-1 w-full bg-gray-200 rounded-full h-1.5">
+                                    <div class="progress-bar-red h-1.5 rounded-full" style="width: 0%"></div>
+                                </div>
+                                <p class="text-xs text-red-600 mt-0.5">New</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-gray-500">0%</span>
+                    </div>
+
+                     <!-- Lecture Item 4 -->
+                    <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between hover:bg-purple-50 transition duration-150 cursor-pointer">
+                        <div class="flex items-center">
+                            <div class="p-2 rounded-full bg-purple-100 mr-3">
+                                <i class="fas fa-play text-purple-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Shakespearean Literature</p>
+                                <p class="text-xs text-gray-500 mt-0.5">English &bull; 41:00 &bull; 3 days ago</p>
+                                <div class="mt-1 w-full bg-gray-200 rounded-full h-1.5">
+                                    <div class="progress-bar-purple h-1.5 rounded-full" style="width: 32%"></div>
+                                </div>
+                                <p class="text-xs text-purple-600 mt-0.5">Progress</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-gray-500">32%</span>
+                    </div>
+                </div>
+
+                <!-- Notes & Study Materials Section -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-file-alt text-green-600 mr-2"></i> Notes & Study Materials
+                        <span class="text-sm font-normal text-gray-500 ml-2">(Download and organize your resources)</span>
+                    </h2>
+
+                    <!-- Material Item 1 -->
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100 hover:bg-gray-50 px-2 rounded-md transition duration-150 cursor-pointer">
+                        <div>
+                            <p class="font-medium text-sm text-gray-900">Calculus Formula Sheet</p>
+                            <p class="text-xs text-gray-500 mt-0.5">PDF &bull; 2.4 MB &bull; Today</p>
+                        </div>
+                        <i class="fas fa-download text-gray-400 hover:text-green-600"></i>
+                    </div>
+
+                    <!-- Material Item 2 -->
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100 hover:bg-gray-50 px-2 rounded-md transition duration-150 cursor-pointer">
+                        <div>
+                            <p class="font-medium text-sm text-gray-900">Chemistry Lab Report Template</p>
+                            <p class="text-xs text-gray-500 mt-0.5">DOCX &bull; 198 KB &bull; Yesterday</p>
+                        </div>
+                        <i class="fas fa-download text-gray-400 hover:text-green-600"></i>
+                    </div>
+
+                    <!-- Material Item 3 -->
+                    <div class="flex justify-between items-center py-2 border-b border-gray-100 hover:bg-gray-50 px-2 rounded-md transition duration-150 cursor-pointer">
+                        <div>
+                            <p class="font-medium text-sm text-gray-900">History Timeline 1900-2000</p>
+                            <p class="text-xs text-gray-500 mt-0.5">PDF &bull; 8.7 MB &bull; 2 days ago</p>
+                        </div>
+                        <i class="fas fa-download text-gray-400 hover:text-green-600"></i>
+                    </div>
+
+                    <!-- Material Item 4 -->
+                    <div class="flex justify-between items-center py-2 hover:bg-gray-50 px-2 rounded-md transition duration-150 cursor-pointer">
+                        <div>
+                            <p class="font-medium text-sm text-gray-900">English Grammar Guide</p>
+                            <p class="text-xs text-gray-500 mt-0.5">PDF &bull; 3.2 MB &bull; 3 days ago</p>
+                        </div>
+                        <i class="fas fa-download text-gray-400 hover:text-green-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Assignments, Feedback & Upload -->
+            <div class="lg:col-span-1 space-y-6">
+
+                <!-- Active Assignments Section -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-hourglass-half text-yellow-600 mr-2"></i> Active Assignments
+                        <span class="text-sm font-normal text-gray-500 ml-2">(Submit your work)</span>
+                    </h2>
+
+                    <!-- Assignment Item 1 (Pending) -->
+                    <div class="p-4 border border-gray-200 rounded-lg mb-3">
+                        <p class="font-semibold text-gray-900">Algebra Problem Set 5</p>
+                        <p class="text-xs text-gray-500 mt-0.5">Mathematics</p>
+                        <p class="text-xs text-red-500 font-medium mt-1">Due in 2 days</p>
+                        <button class="mt-2 w-full bg-yellow-500 text-white text-sm font-medium py-2 rounded-lg hover:bg-yellow-600 transition duration-150">
+                            <i class="fas fa-upload mr-1"></i> Submit Work
+                        </button>
+                    </div>
+
+                    <!-- Assignment Item 2 (Pending) -->
+                    <div class="p-4 border border-gray-200 rounded-lg mb-3">
+                        <p class="font-semibold text-gray-900">Lab Report: Photosynthesis</p>
+                        <p class="text-xs text-gray-500 mt-0.5">Biology</p>
+                        <p class="text-xs text-orange-500 font-medium mt-1">Due in 5 days</p>
+                        <button class="mt-2 w-full bg-yellow-500 text-white text-sm font-medium py-2 rounded-lg hover:bg-yellow-600 transition duration-150">
+                            <i class="fas fa-upload mr-1"></i> Submit Work
+                        </button>
+                    </div>
+                    
+                    <!-- Assignment Item 3 (Submitted) -->
+                    <div class="p-4 border border-gray-200 bg-green-50 rounded-lg relative">
+                         <div class="absolute top-3 right-3 p-1 rounded-full bg-green-500 text-white">
+                            <i class="fas fa-check text-xs"></i>
+                        </div>
+                        <p class="font-semibold text-gray-900">Essay: Industrial Revolution</p>
+                        <p class="text-xs text-gray-500 mt-0.5">History</p>
+                        <p class="text-xs text-green-600 font-medium mt-1">Submitted</p>
+                        <button class="mt-2 w-full bg-green-500 text-white text-sm font-medium py-2 rounded-lg hover:bg-green-600 transition duration-150 opacity-50 cursor-not-allowed" disabled>
+                            Submitted
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Feedback Section -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-comments text-blue-600 mr-2"></i> Recent Feedback
+                    </h2>
+
+                    <!-- Feedback Item 1 -->
+                    <div class="py-2 border-b border-gray-100">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-sm text-gray-900">Physics Quiz 3</p>
+                            <span class="text-xs font-bold text-white bg-green-500 px-2 py-0.5 rounded-full">95%</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-0.5">Excellent work! Minor error in question 5.</p>
+                    </div>
+
+                    <!-- Feedback Item 2 -->
+                    <div class="py-2">
+                        <div class="flex justify-between items-center">
+                            <p class="font-medium text-sm text-gray-900">Literature Essay</p>
+                            <span class="text-xs font-bold text-white bg-green-500 px-2 py-0.5 rounded-full">88%</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-0.5">Great analysis. Improve citations.</p>
+                    </div>
+                </div>
+
+                <!-- Quick Upload Section -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-cloud-upload-alt text-purple-600 mr-2"></i> Quick Upload
+                    </h2>
+                    
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-purple-400 transition duration-150">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-sm text-gray-500">Drag & drop files here</p>
+                        <button class="mt-2 bg-purple-500 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-purple-600 transition duration-150">
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPulse Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Tesseract.js for OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <!-- Load PDF.js to render PDF pages as images -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- Set up the PDF.js worker -->
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+    <!-- Use Inter font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display.swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Light background */
+        }
+        .purple-gradient {
+            background: linear-gradient(90deg, #6b46c1, #805ad5);
+        }
+        .text-purple-600 { color: #6b46c1; }
+        .bg-purple-600 { background-color: #6b46c1; }
+        .ring-purple-600 { --tw-ring-color: #6b46c1; }
+
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 2px; }
+        
+        /* Loading spinner for buttons */
+        .button-loading::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+        }
+        .button-loading-purple::after {
+             border: 2px solid #6b46c1;
+             border-top-color: transparent;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <svg class="h-7 w-7 text-purple-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="text-xl font-bold text-gray-800">EduPulse</span>
+                </div>
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-4 lg:space-x-8">
+                    <a href="modulu1.html" class="px-3 py-2 text-sm font-medium text-white purple-gradient rounded-lg shadow-md">Admin & Operations</a>
+                    <a href="modulu2.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">AI Learning</a>
+                    <a href="modulu3.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">Gamification</a>
+                    <a href="modulu4.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">Resources</a>
+                    <a href="modulu5.html" class="px-3 py-2 text-sm font-medium text-gray-500 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-150">Future Tools</a>
+                </nav>
+                <!-- Profile/User Icon (Mock) -->
+                <div class="flex items-center">
+                    <div class="ml-3 relative">
+                        <button type="button" class="bg-gray-100 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Admin & School Operations</h1>
+            <p class="text-sm text-gray-500 mt-1">Complete management suite for daily operations</p>
+        </div>
+
+        <!-- Section 1: Top Statistics Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <!-- Card 1: Attendance -->
+            <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-green-500">
+                <p class="text-sm font-medium text-gray-500">Today's Attendance</p>
+                <p class="text-3xl font-semibold text-green-600 mt-1">94.5%</p>
+            </div>
+            <!-- Card 2: Active Students -->
+            <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-blue-500">
+                <p class="text-sm font-medium text-gray-500">Active Students</p>
+                <p class="text-3xl font-semibold text-gray-900 mt-1">1,247</p>
+            </div>
+            <!-- Card 3: Pending Notifications -->
+            <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-amber-500">
+                <p class="text-sm font-medium text-gray-500">Pending Notifications</p>
+                <p class="text-3xl font-semibold text-amber-600 mt-1">23</p>
+            </div>
+            <!-- Card 4: Recent Messages -->
+            <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-purple-500">
+                <p class="text-sm font-medium text-gray-500">Recent Messages</p>
+                <p class="text-3xl font-semibold text-gray-900 mt-1">156</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Main Feature Modules -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- LEFT COLUMN -->
+            <div class="space-y-8">
+                <!-- Module 3: PDF Paper Scoring & Scanning -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">PDF Tools</h2>
+                            <p class="text-sm text-gray-500 mt-1">Automated grading and text extraction</p>
+                        </div>
+                        <span class="text-xs font-semibold bg-green-100 text-green-600 px-3 py-1 rounded-full">Available</span>
+                    </div>
+
+                    <div class="mt-6 flex flex-col items-center border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                        <svg class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                        <p class="text-sm text-gray-600 mt-2">Upload Answer Sheets</p>
+                        <p class="text-xs text-gray-400">PDF only</p>
+                        
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-4 mt-4">
+                            <button id="upload-button" class="bg-green-500 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-green-600 transition-colors duration-150">Upload & Score</button>
+                            <button id="scan-text-button" class="bg-purple-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-150">Scan Text (In Browser)</button>
+                        </div>
+                    </div>
+
+                    <!-- Feedback area for both functions -->
+                    <div id="message-area" class="mt-4 text-sm text-center h-5"></div>
+
+                    <!-- Scoring Results -->
+                    <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-3">Recent Scores</h3>
+                    <div id="recent-scores" class="space-y-2 text-sm">
+                         <div id="no-scores-message" class="text-center text-gray-500 py-4">No papers scored yet.</div>
+                    </div>
+                    
+                    <!-- Tesseract Scan Results -->
+                    <div id="scan-results-container" class="mt-6 hidden">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-3">Scanned Text Result</h3>
+                        <div id="scan-result-area" class="mt-2 p-4 h-48 bg-gray-50 border border-gray-200 rounded-lg overflow-y-auto whitespace-pre-wrap text-gray-700 custom-scrollbar">
+                            Text scanned from the PDF will appear here...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- RIGHT COLUMN -->
+            <div class="space-y-8">
+                 <!-- Module 2: AI Timetable Generator -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">AI Timetable Generator</h2>
+                            <p class="text-sm text-gray-500 mt-1">Intelligent scheduling optimization</p>
+                        </div>
+                        <span class="text-xs font-semibold bg-amber-100 text-amber-600 px-3 py-1 rounded-full">In Review</span>
+                    </div>
+
+                    <!-- User Input Fields for Timetable -->
+                    <div class="mt-6 space-y-4">
+                        <div>
+                            <label for="subjects-input" class="text-sm font-medium text-gray-700">Subjects (comma-separated)</label>
+                            <textarea id="subjects-input" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm p-2">Math, Science, History, English, Art, P.E.</textarea>
+                        </div>
+                        <div>
+                            <label for="teachers-input" class="text-sm font-medium text-gray-700">Teachers (comma-separated)</label>
+                            <textarea id="teachers-input" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm p-2">Mr. Smith, Ms. Jones, Mr. Chen, Mrs. Davis, Ms. Lee</textarea>
+                        </div>
+                        <div>
+                            <label for="rooms-input" class="text-sm font-medium text-gray-700">Rooms (comma-separated)</label>
+                            <textarea id="rooms-input" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 sm:text-sm p-2">101, 102, 201, 202, Gym, Art Studio</textarea>
+                        </div>
+                    </div>
+                    
+                    <button id="generate-timetable-button" class="w-full mt-4 py-3 bg-purple-100 text-purple-600 font-semibold rounded-lg shadow-md hover:bg-purple-200 transition-colors duration-150">
+                        Generate New Timetable
+                    </button>
+                    <div id="timetable-message-area" class="mt-2 text-sm text-center h-5"></div>
+
+                    <div class="grid grid-cols-2 gap-4 mt-6 text-center">
+                        <div>
+                            <p id="classes-scheduled-output" class="text-3xl font-bold text-gray-900">248</p>
+                            <p class="text-sm text-gray-500">Classes Scheduled</p>
+                        </div>
+                        <div>
+                            <p id="conflicts-resolved-output" class="text-3xl font-bold text-green-600">12</p>
+                            <p class="text-sm text-gray-500">Conflicts Resolved</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Timetable Display Area -->
+                <div id="timetable-results-container" class="bg-white p-6 rounded-xl shadow-lg hidden">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Generated Timetable</h2>
+                    <!-- Day Tabs -->
+                    <div class="border-b border-gray-200">
+                        <nav id="timetable-tabs" class="-mb-px flex space-x-8" aria-label="Tabs">
+                            <!-- Tabs will be dynamically inserted here -->
+                        </nav>
+                    </div>
+                    <!-- Day Content -->
+                    <div id="timetable-content" class="mt-4">
+                        <!-- Timetable content for each day will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Module 4: Parent Communication -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Parent Communication</h2>
+                            <p class="text-sm text-gray-500 mt-1">Direct messaging & notifications</p>
+                        </div>
+                        <span class="text-xs font-semibold bg-blue-100 text-blue-600 px-3 py-1 rounded-full">14 New</span>
+                    </div>
+                    <!-- Message List -->
+                    <div class="mt-6 space-y-4 max-h-80 overflow-y-auto custom-scrollbar">
+                        <!-- Message 1 -->
+                        <div class="border-b pb-4 last:border-b-0 flex justify-between items-start">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-gray-800">Mrs. Johnson</span>
+                                <p class="text-sm text-gray-600">Request for meeting</p>
+                            </div>
+                            <span class="text-xs text-gray-400">1m ago</span>
+                        </div>
+                        <!-- Message 2 -->
+                        <div class="border-b pb-4 last:border-b-0 flex justify-between items-start">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-gray-800">Mr. Chen</span>
+                                <p class="text-sm text-gray-600">Question about homework</p>
+                            </div>
+                            <span class="text-xs text-gray-400">1h ago</span>
+                        </div>
+                        <!-- Message 3 -->
+                        <div class="border-b pb-4 last:border-b-0 flex justify-between items-start">
+                            <div class="flex flex-col">
+                                <span class="font-medium text-gray-800">Ms. Davis</span>
+                                <p class="text-sm text-gray-600">Thank you for the update</p>
+                            </div>
+                            <span class="text-xs text-gray-400">2h ago</span>
+                        </div>
+                    </div>
+                    <!-- Actions -->
+                    <div class="mt-6 flex justify-between items-center">
+                        <button class="flex items-center text-sm font-medium text-purple-600 hover:text-purple-700 transition-colors duration-150 px-3 py-2 rounded-lg">
+                            <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            Send Notification
+                        </button>
+                        <button class="bg-purple-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-purple-700 transition-colors duration-150">
+                            View All Messages
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elements for PDF Scoring ---
+            const uploadButton = document.getElementById('upload-button');
+            const recentScoresContainer = document.getElementById('recent-scores');
+            const messageArea = document.getElementById('message-area');
+            const noScoresMessage = document.getElementById('no-scores-message');
+
+            const scoringFileInput = document.createElement('input');
+            scoringFileInput.type = 'file';
+            scoringFileInput.accept = '.pdf';
+            scoringFileInput.style.display = 'none';
+            document.body.appendChild(scoringFileInput);
+
+            uploadButton.addEventListener('click', () => {
+                messageArea.innerHTML = '';
+                scoringFileInput.click();
+            });
+
+            scoringFileInput.addEventListener('change', async (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+                
+                document.getElementById('scan-results-container').classList.add('hidden');
+                document.getElementById('scan-result-area').innerHTML = '';
+
+                setLoading(uploadButton, true, 'Scoring...', false);
+                const formData = new FormData();
+                formData.append('answerSheet', file);
+
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/upload_and_score', { method: 'POST', body: formData });
+                    const result = await response.json();
+                    if (response.ok && result.success) {
+                        showMessage(messageArea, 'Scoring successful!', 'green');
+                        addScoreToDashboard(result.data);
+                    } else {
+                        showMessage(messageArea, result.message || 'An unknown error occurred.', 'red');
+                    }
+                } catch (error) {
+                    console.error('Upload Error:', error);
+                    showMessage(messageArea, 'Could not connect to the scoring server. Is it running?', 'red');
+                } finally {
+                    setLoading(uploadButton, false, 'Upload & Score', false);
+                    scoringFileInput.value = '';
+                }
+            });
+
+            // --- Elements for Tesseract.js Scanning ---
+            const scanTextButton = document.getElementById('scan-text-button');
+            const scanResultsContainer = document.getElementById('scan-results-container');
+            const scanResultArea = document.getElementById('scan-result-area');
+
+            const scannerFileInput = document.createElement('input');
+            scannerFileInput.type = 'file';
+            scannerFileInput.accept = '.pdf';
+            scannerFileInput.style.display = 'none';
+            document.body.appendChild(scannerFileInput);
+
+            scanTextButton.addEventListener('click', () => {
+                messageArea.innerHTML = '';
+                scannerFileInput.click();
+            });
+
+            scannerFileInput.addEventListener('change', async (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                setLoading(scanTextButton, true, 'Scanning...', false);
+                scanResultsContainer.classList.remove('hidden');
+                scanResultArea.innerHTML = '';
+
+                try {
+                    const fileReader = new FileReader();
+                    fileReader.onload = async (e) => {
+                        const typedarray = new Uint8Array(e.target.result);
+                        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                        
+                        showMessage(messageArea, `Processing ${pdf.numPages} page(s)...`, 'gray');
+                        
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const scale = 1.5;
+                            const viewport = page.getViewport({ scale });
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                            await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+                            const { data: { text } } = await Tesseract.recognize(canvas, 'eng', {
+                                logger: m => {
+                                    if (m.status === 'recognizing text') {
+                                        showMessage(messageArea, `Recognizing page ${i}... (${(m.progress * 100).toFixed(0)}%)`, 'gray');
+                                    }
+                                }
+                            });
+                            
+                            scanResultArea.innerHTML += `--- Page ${i} ---\n${text}\n\n`;
+                            scanResultArea.scrollTop = scanResultArea.scrollHeight;
+                        }
+                        showMessage(messageArea, 'Scan complete!', 'green');
+                    };
+                    fileReader.readAsArrayBuffer(file);
+                } catch (error) {
+                    console.error('Error scanning PDF:', error);
+                    showMessage(messageArea, 'An error occurred during scanning.', 'red');
+                    scanResultArea.textContent = `Error: ${error.message}`;
+                } finally {
+                    setLoading(scanTextButton, false, 'Scan Text (In Browser)', false);
+                    scannerFileInput.value = '';
+                }
+            });
+
+            // --- Elements for Timetable Generation ---
+            const generateButton = document.getElementById('generate-timetable-button');
+            const subjectsInput = document.getElementById('subjects-input');
+            const teachersInput = document.getElementById('teachers-input');
+            const roomsInput = document.getElementById('rooms-input');
+            const timetableMessageArea = document.getElementById('timetable-message-area');
+            const classesScheduledOutput = document.getElementById('classes-scheduled-output');
+            const conflictsResolvedOutput = document.getElementById('conflicts-resolved-output');
+            const timetableResultsContainer = document.getElementById('timetable-results-container');
+            const timetableTabs = document.getElementById('timetable-tabs');
+            const timetableContent = document.getElementById('timetable-content');
+
+            generateButton.addEventListener('click', async () => {
+                const subjects = subjectsInput.value.split(',').map(s => s.trim()).filter(s => s);
+                const teachers = teachersInput.value.split(',').map(t => t.trim()).filter(t => t);
+                const rooms = roomsInput.value.split(',').map(r => r.trim()).filter(r => r);
+
+                if (subjects.length === 0 || teachers.length === 0 || rooms.length === 0) {
+                    showMessage(timetableMessageArea, 'Please fill in all fields.', 'red');
+                    return;
+                }
+
+                setLoading(generateButton, true, 'Generating...', true);
+                
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/generate_timetable', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ subjects, teachers, rooms })
+                    });
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        showMessage(timetableMessageArea, result.message, 'green');
+                        classesScheduledOutput.textContent = result.data.stats.classesScheduled;
+                        conflictsResolvedOutput.textContent = result.data.stats.conflictsResolved;
+                        displayTimetable(result.data.timetable);
+                    } else {
+                        showMessage(timetableMessageArea, result.message || 'An error occurred.', 'red');
+                    }
+                } catch (error) {
+                    console.error('Timetable Generation Error:', error);
+                    showMessage(timetableMessageArea, 'Could not connect to the server.', 'red');
+                } finally {
+                    setLoading(generateButton, false, 'Generate New Timetable', true);
+                }
+            });
+            
+            // --- NEW: Timetable Display Function ---
+            function displayTimetable(timetableData) {
+                timetableTabs.innerHTML = '';
+                timetableContent.innerHTML = '';
+                timetableResultsContainer.classList.remove('hidden');
+
+                const days = Object.keys(timetableData);
+                days.forEach((day, index) => {
+                    // Create Tab Button
+                    const tabButton = document.createElement('button');
+                    tabButton.textContent = day;
+                    tabButton.dataset.day = day;
+                    tabButton.className = 'timetable-tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+                    if (index === 0) {
+                        tabButton.classList.add('border-purple-500', 'text-purple-600');
+                    } else {
+                        tabButton.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                    }
+                    timetableTabs.appendChild(tabButton);
+
+                    // Create Content Pane
+                    const contentPane = document.createElement('div');
+                    contentPane.id = `content-${day}`;
+                    contentPane.className = 'timetable-content-pane';
+                    if (index !== 0) {
+                        contentPane.classList.add('hidden');
+                    }
+                    
+                    let tableHTML = `
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teacher</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">`;
+
+                    const daySchedule = timetableData[day];
+                    // Group by time for a cleaner view
+                    const scheduleByTime = daySchedule.reduce((acc, entry) => {
+                        if (!acc[entry.time]) acc[entry.time] = [];
+                        acc[entry.time].push(entry);
+                        return acc;
+                    }, {});
+
+                    for (const time in scheduleByTime) {
+                        scheduleByTime[time].forEach((entry, entryIndex) => {
+                            tableHTML += `
+                                <tr>
+                                    ${entryIndex === 0 ? `<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" rowspan="${scheduleByTime[time].length}">${entry.time}</td>` : ''}
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${entry.subject}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${entry.teacher}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${entry.room}</td>
+                                </tr>
+                            `;
+                        });
+                    }
+
+                    tableHTML += `</tbody></table></div>`;
+                    contentPane.innerHTML = tableHTML;
+                    timetableContent.appendChild(contentPane);
+                });
+
+                // Add Tab Click Listeners
+                document.querySelectorAll('.timetable-tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Deactivate all tabs
+                        document.querySelectorAll('.timetable-tab').forEach(t => {
+                            t.classList.remove('border-purple-500', 'text-purple-600');
+                            t.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                        });
+                        // Hide all content panes
+                        document.querySelectorAll('.timetable-content-pane').forEach(p => p.classList.add('hidden'));
+
+                        // Activate clicked tab
+                        tab.classList.add('border-purple-500', 'text-purple-600');
+                        tab.classList.remove('border-transparent', 'text-gray-500');
+                        
+                        // Show corresponding content pane
+                        document.getElementById(`content-${tab.dataset.day}`).classList.remove('hidden');
+                    });
+                });
+            }
+
+            // --- Helper Functions ---
+            function setLoading(button, isLoading, loadingText, isPurple) {
+                const originalText = button.id === 'upload-button' ? 'Upload & Score' 
+                                 : button.id === 'scan-text-button' ? 'Scan Text (In Browser)'
+                                 : 'Generate New Timetable';
+                if (isLoading) {
+                    button.disabled = true;
+                    button.innerHTML = loadingText;
+                    button.classList.add('opacity-75', 'cursor-not-allowed', isPurple ? 'button-loading-purple' : 'button-loading');
+                } else {
+                    button.disabled = false;
+                    button.innerHTML = originalText;
+                    button.classList.remove('opacity-75', 'cursor-not-allowed', isPurple ? 'button-loading-purple' : 'button-loading');
+                }
+            }
+            
+            function showMessage(element, text, color) {
+                element.innerHTML = `<p class="text-${color}-600 font-medium">${text}</p>`;
+            }
+
+            function addScoreToDashboard(scoreData) {
+                if(noScoresMessage) noScoresMessage.style.display = 'none';
+                const newScoreElement = document.createElement('div');
+                newScoreElement.className = 'flex justify-between items-center text-gray-600 bg-gray-50 p-2 rounded-lg';
+                newScoreElement.innerHTML = `<span>${scoreData.test_name}</span><span class="font-bold text-lg text-purple-600">${scoreData.score}/${scoreData.max_score}</span>`;
+                recentScoresContainer.prepend(newScoreElement);
+            }
+        });
+    </script>
+</body>
+</html>
+
